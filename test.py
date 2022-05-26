@@ -44,13 +44,22 @@ def get_shoe_status(link, product_id, product_size):
 
     return shoes_status
 
+# first run
+shoes_status_m = get_shoe_status(link_m, product_id_m, product_size)
+now = datetime.now().strftime("%H:%M:%S")
+if shoes_status_m == True:
+    telegram_send.send(messages=[f'{now} \n First run \n Meskie Air Force One {product_size} jest już dostępne na stronie'], silent=False)
+else:
+    telegram_send.send(messages=[f'{now} \n First run'], silent=False)
+time.sleep(30)
 
 while True:
-
+    now = datetime.now().strftime("%H:%M:%S")
+    print(now, "ok")
     shoes_status_m = get_shoe_status(link_m, product_id_m, product_size)
     shoes_status_f = get_shoe_status(link_f, product_id_f, product_size)
     
-    now = datetime.now().strftime("%H:%M:%S")
+
     if shoes_status_m == True:
         telegram_send.send(messages=[f'{now} \n Meskie Air Force One {product_size} jest już dostępne na stronie'], silent=False)
     elif shoes_status_f == True:
